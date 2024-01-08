@@ -26,6 +26,5 @@ go clean -i github.com/chlorineCtrl
 /Complexity-Analyzer/cmd/complexity
 ```
 
-**OUTPUT:
-**
-![output1](C:\Users\abirh\Desktop\Analyzer\images\msin.png)
+**OUTPUT:**
+![output1](https://github.com/chlorineCtrl/Complexity-Analyzer/blob/main/msin.png?raw=true)
