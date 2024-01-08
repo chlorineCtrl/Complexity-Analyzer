@@ -27,4 +27,4 @@ go clean -i github.com/chlorineCtrl
 ```
 
 **OUTPUT:**
-![output1](https://github.com/chlorineCtrl/Complexity-Analyzer/blob/main/msin.png?raw=true)
+![output1](https://github.com/chlorineCtrl/Complexity-Analyzer/blob/main/images\msin.png?raw=true)
