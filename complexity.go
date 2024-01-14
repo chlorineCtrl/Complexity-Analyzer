@@ -112,18 +112,20 @@ func run(pass *analysis.Pass) (interface{}, error) {
 
 		// Print Halstead metrics
 		fmt.Printf("Halstead Metrics:\n")
-		printHalsteadMetrics(totalCyclo, totalMaint, funcCount)
+		printHalsteadMetrics(int(totalHalsteadDifficulty), int(totalHalsteadVolume), funcCount)
 	}
 	fmt.Printf("Total Line of Code: %s\n", colorizeBlue(fmt.Sprintf("%d", pass.Fset.File(pass.Files[0].Pos()).LineCount())))
 	return nil, nil
 }
 
 func printHalsteadMetrics(totalHalsteadDifficulty, totalHalsteadVolume, funcCount int) {
-	averageDifficulty := float64(totalHalsteadDifficulty) / float64(funcCount)
+	// averageDifficulty := float64(totalHalsteadDifficulty) / float64(funcCount)
 	averageVolume := float64(totalHalsteadVolume) / float64(funcCount)
 	// fmt.Println(totalMaint / funcCount)
 	// fmt.Println(totalCyclo)
-	fmt.Printf("  Difficulty: %s\n", colorizeBlue(fmt.Sprintf("%0.2f", averageDifficulty)))
+	// fmt.Println(totalHalsteadDifficulty)
+	// fmt.Println(totalHalsteadVolume)
+	fmt.Printf("  Difficulty: NaN" /*, colorizeBlue(fmt.Sprintf("%0.2f", averageDifficulty))*/)
 	fmt.Printf("  Volume: %s\n", colorizeBlue(fmt.Sprintf("%0.2f", averageVolume)))
 }
 
