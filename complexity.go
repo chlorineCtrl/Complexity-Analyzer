@@ -27,11 +27,13 @@ var Analyzer = &analysis.Analyzer{
 }
 
 var (
-	cycloover  int
-	maintunder int
-	totalCyclo int
-	totalMaint int
-	funcCount  int
+	cycloover               int
+	maintunder              int
+	totalCyclo              int
+	totalMaint              int
+	funcCount               int
+	totalHalsteadVolume     float64
+	totalHalsteadDifficulty float64
 )
 
 func init() {
@@ -52,14 +54,16 @@ func run(pass *analysis.Pass) (interface{}, error) {
 			cycloComp := calcCycloComp(n)
 			totalCyclo += cycloComp
 
+			halstMet := calcHalstComp(n)
+			totalHalsteadVolume += halstMet["volume"]
+			totalHalsteadDifficulty += halstMet["difficulty"]
+
 			if cycloComp > cycloover {
 				npos := n.Pos()
 				p := pass.Fset.File(npos).Position(npos)
 				msg := fmt.Sprintf("func %s seems to be complex (cyclomatic complexity=%d)\n", n.Name, cycloComp)
 				fmt.Printf("%s:%d:%d: %s", p.Filename, p.Line, p.Column, msg)
 			}
-
-			halstMet := calcHalstComp(n)
 
 			loc := countLOC(pass.Fset, n)
 			maintIdx := calcMaintIndex(halstMet["volume"], cycloComp, loc)
@@ -114,9 +118,9 @@ func run(pass *analysis.Pass) (interface{}, error) {
 	return nil, nil
 }
 
-func printHalsteadMetrics(totalCyclo, totalMaint, funcCount int) {
-	averageDifficulty := float64(totalMaint) / float64(funcCount)
-	averageVolume := float64(totalCyclo) / float64(funcCount)
+func printHalsteadMetrics(totalHalsteadDifficulty, totalHalsteadVolume, funcCount int) {
+	averageDifficulty := float64(totalHalsteadDifficulty) / float64(funcCount)
+	averageVolume := float64(totalHalsteadVolume) / float64(funcCount)
 	// fmt.Println(totalMaint / funcCount)
 	// fmt.Println(totalCyclo)
 	fmt.Printf("  Difficulty: %s\n", colorizeBlue(fmt.Sprintf("%0.2f", averageDifficulty)))
