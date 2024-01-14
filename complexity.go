@@ -56,7 +56,9 @@ func run(pass *analysis.Pass) (interface{}, error) {
 
 			halstMet := calcHalstComp(n)
 			totalHalsteadVolume += halstMet["volume"]
-			totalHalsteadDifficulty += halstMet["difficulty"]
+			if !math.IsNaN(halstMet["difficulty"]) {
+				totalHalsteadDifficulty += halstMet["difficulty"]
+			}
 
 			if cycloComp > cycloover {
 				npos := n.Pos()
@@ -119,13 +121,13 @@ func run(pass *analysis.Pass) (interface{}, error) {
 }
 
 func printHalsteadMetrics(totalHalsteadDifficulty, totalHalsteadVolume, funcCount int) {
-	// averageDifficulty := float64(totalHalsteadDifficulty) / float64(funcCount)
+	averageDifficulty := float64(totalHalsteadDifficulty) / float64(funcCount)
 	averageVolume := float64(totalHalsteadVolume) / float64(funcCount)
 	// fmt.Println(totalMaint / funcCount)
 	// fmt.Println(totalCyclo)
 	// fmt.Println(totalHalsteadDifficulty)
 	// fmt.Println(totalHalsteadVolume)
-	fmt.Printf("  Difficulty: NaN" /*, colorizeBlue(fmt.Sprintf("%0.2f", averageDifficulty))*/)
+	fmt.Printf("  Difficulty: %s\n", colorizeBlue(fmt.Sprintf("%0.2f", averageDifficulty)))
 	fmt.Printf("  Volume: %s\n", colorizeBlue(fmt.Sprintf("%0.2f", averageVolume)))
 }
 
