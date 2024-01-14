@@ -54,4 +54,4 @@ func f4() { // want "Cyclomatic complexity: 11"
 	case 8:
 	case 9:
 	}
-} // LOC 57 // Total cc (26\5) = 5 // MI = 68
+} // LOC 57 // Total cc (26\5) = 5 // MI = 68 // diffi = 2.9939 // volume = 67.6728

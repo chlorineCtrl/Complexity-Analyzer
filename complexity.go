@@ -114,13 +114,13 @@ func run(pass *analysis.Pass) (interface{}, error) {
 
 		// Print Halstead metrics
 		fmt.Printf("Halstead Metrics:\n")
-		printHalsteadMetrics(int(totalHalsteadDifficulty), int(totalHalsteadVolume), funcCount)
+		printHalsteadMetrics(totalHalsteadDifficulty, totalHalsteadVolume, funcCount)
 	}
 	fmt.Printf("Total Line of Code: %s\n", colorizeBlue(fmt.Sprintf("%d", pass.Fset.File(pass.Files[0].Pos()).LineCount())))
 	return nil, nil
 }
 
-func printHalsteadMetrics(totalHalsteadDifficulty, totalHalsteadVolume, funcCount int) {
+func printHalsteadMetrics(totalHalsteadDifficulty float64, totalHalsteadVolume float64, funcCount int) {
 	averageDifficulty := float64(totalHalsteadDifficulty) / float64(funcCount)
 	averageVolume := float64(totalHalsteadVolume) / float64(funcCount)
 	// fmt.Println(totalMaint / funcCount)
