@@ -84,23 +84,27 @@ func run(pass *analysis.Pass) (interface{}, error) {
 
 	// Print average values
 	if funcCount > 0 {
+		// fmt.Println(funcCount)
 		averageCyclo := float64(totalCyclo) / float64(funcCount)
 		averageMaint := float64(totalMaint) / float64(funcCount)
 		fmt.Println("/////////////////////////////////////////////////////////////////")
 		if averageMaint >= 20.00 {
+			// fmt.Println(funcCount)
 			fmt.Println("THE PRODUCT IS WELL MAINTAINABLE")
-			fmt.Printf("Product Maintainability Index: %s\n", colorizeGreen(fmt.Sprintf("%0.2f", averageMaint)))
+			fmt.Printf("Product Maintainability Index: %s\n", colorizeGreen(fmt.Sprintf("%0.0f", averageMaint)))
 		}
 		if averageMaint >= 10 && averageMaint <= 19 {
+			// fmt.Println(funcCount)
 			fmt.Println("THE PRODUCT IS MAINTAINABLE")
-			fmt.Printf("Product Maintainability Index: %s\n", colorizeYellow(fmt.Sprintf("%0.2f", averageMaint)))
+			fmt.Printf("Product Maintainability Index: %s\n", colorizeYellow(fmt.Sprintf("%0.0f", averageMaint)))
 		}
 		if averageMaint >= 0 && averageMaint <= 9 {
+			// fmt.Println(funcCount)
 			fmt.Println("THE PRODUCT IS NOT MAINTAINABLE")
-			fmt.Printf("Product Maintainability Index: %s\n", colorizeRed(fmt.Sprintf("%0.2f", averageMaint)))
+			fmt.Printf("Product Maintainability Index: %s\n", colorizeRed(fmt.Sprintf("%0.0f", averageMaint)))
 		}
 
-		fmt.Printf("Product Cyclomatic Complexity: %s\n", colorizeBlue(fmt.Sprintf("%0.2f", averageCyclo)))
+		fmt.Printf("Product Cyclomatic Complexity: %s\n", colorizeBlue(fmt.Sprintf("%0.0f", averageCyclo)))
 
 		// Print Halstead metrics
 		fmt.Printf("Halstead Metrics:\n")
@@ -113,6 +117,8 @@ func run(pass *analysis.Pass) (interface{}, error) {
 func printHalsteadMetrics(totalCyclo, totalMaint, funcCount int) {
 	averageDifficulty := float64(totalMaint) / float64(funcCount)
 	averageVolume := float64(totalCyclo) / float64(funcCount)
+	// fmt.Println(totalMaint / funcCount)
+	// fmt.Println(totalCyclo)
 	fmt.Printf("  Difficulty: %s\n", colorizeBlue(fmt.Sprintf("%0.2f", averageDifficulty)))
 	fmt.Printf("  Volume: %s\n", colorizeBlue(fmt.Sprintf("%0.2f", averageVolume)))
 }
